@@ -1,19 +1,19 @@
-type CacheValue = {
-	encodedValue: string;
+type CacheValue<T> = {
+	encodedValue: T;
 	recorded: number; // epoch
 	ttlMinutes: number;
 };
 
 export class CacheService {
-	private static _cache: { [key: string]: CacheValue } = {};
+	private static _cache: { [key: string]: CacheValue<object | string> } = {};
 
-	public static registerCacheValue<T>(
+	public static registerCacheValue<T extends object | string>(
 		key: string,
 		value: T,
 		ttlMinutes: number
 	): void {
-		const encodedValue = atob(JSON.stringify(value));
-		const cacheValue: CacheValue = {
+		const encodedValue = value;
+		const cacheValue: CacheValue<T> = {
 			encodedValue,
 			ttlMinutes,
 			recorded: Date.now(),
@@ -21,7 +21,9 @@ export class CacheService {
 		CacheService._cache[key] = cacheValue;
 	}
 
-	public static getCachedValue<T>(key: string): T | null {
+	public static getCachedValue<T extends object | string>(
+		key: string
+	): T | null {
 		const value = CacheService._cache[key] ?? null;
 		if (!value) return null;
 
@@ -31,7 +33,7 @@ export class CacheService {
 			return null;
 		}
 
-		const decodedValue = JSON.parse(btoa(value.encodedValue)) as T;
+		const decodedValue = value.encodedValue as T;
 
 		return decodedValue ?? null;
 	}
