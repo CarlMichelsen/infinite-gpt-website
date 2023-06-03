@@ -1,7 +1,7 @@
 {
 	"name": "infinite-gpt-website",
 	"version": "0.0.1",
-	"description": "An infinite website generated with OpenAI GPT-4.",
+	"description": "An infinitely generated website using OpenAI GPT-4.",
 	"main": "index.js",
 	"scripts": {
 		"prebuild": "eslint src/**/*.ts",
