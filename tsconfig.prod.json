@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "NodeNext",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "skipLibCheck": true,
+        "sourceMap": false,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "dist"
+    }
+}
